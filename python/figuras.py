@@ -16,21 +16,77 @@ def draw_line(x0,y0,x1,y1):
         sy=1
     
     if abs(dy) < abs(dx):
-        m=dy/dx
-        p=y0-m*x0
+        m = dy / dx
+        p = y0 - m*x0
+
+        # Parallel part of the code
+        while x0 + 8*sx != x1:
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+        
+        # Secuential part of the code
         while x0 != x1:
             matrix[x0,round(m*x0+p), :] = 0
-            x0+=sx#esto se puede trabajar con la misma suma que tenemos implementada
+            x0 += sx
+
+
     else:
-        m=dx/dy
-        p=x0-m*y0
-        while y0!=y1:
+        m = dx / dy
+        p = x0 - m*y0
+
+        # Parallel part of the code
+        while y0 + 8*sy != y1:
             matrix[round(m*y0+p),y0, :] = 0
-            y0+=sy
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+
+        # Secuential part of the code
+        while y0 != y1:
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
     
     plt.imshow(matrix)
     plt.grid(True)
-    plt.show()
+    #plt.show()
+
+
+
+def triangle(x1, y1, x2, y2, x3, y3):
+
+    draw_line(x1, y1, x2, y2)
+    draw_line(x1, y1, x3, y3)
+    draw_line(x3, y3, x2, y2)
+
+    plt.imshow(matrix)
+    plt.grid(True)
+
     
 def draw_circle(xc,yc,r):
     d = 3 - (2 * r)
@@ -137,41 +193,44 @@ def fill_circle(xc, yc, r):
 
     if r > 1:
 
-        for i in range(1, r - 1): 
+        for i in range(0, r): 
             draw_circle(xc, yc, i)
+
+    matrix[xc, yc, :] = 0
 
 def fill_elipse(xc, yc, rx, ry):
 
     # We search the smallest radius
     if(rx > ry):
         r_menor = ry
-        r_mayor = rx
-        factor_x = 1
-        factor_y = 0
     else:
         r_menor = rx
-        r_mayor = ry
 
+    # Check if its big enought to be filled
     if r_menor > 1:
 
-        r_mayor -= r_menor - 1
-
-        for i in range(1, r_menor - 1): 
+        for i in range(0, r_menor): 
 
             draw_elipse(xc, yc, rx, ry)
 
             rx -= 1
             ry -= 1 
         
-        #fill_circle(xc, yc, r_mayor)
-        for j in range(0, r_mayor):
-            draw_line(xc + rx, yc + ry, xc - rx, yc - ry)
+
+        
+        if(rx > ry):
+            draw_line(xc + rx, yc, xc - rx, yc)
+
+        else:
+            draw_line(xc, yc + ry, xc, yc - ry)
+
+        
 
 
 
 
-#def fill_triangle(p1, p2, p3):
-
+#def fill_triangle(x1, y1, x2, y2, x3, y3):
+    
 
 
 

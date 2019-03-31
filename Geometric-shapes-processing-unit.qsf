@@ -48,3 +48,23 @@ set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
 set_global_assignment -name EDA_BOARD_DESIGN_TIMING_TOOL "Stamp (Timing)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT STAMP -section_id eda_board_design_timing
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/REG_EN.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/decoder.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/control_unit.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/conditions.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/conditional_logic.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/xor_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/tb_ALU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/sumador.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/simpleAdder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/right_shift_logic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/right_shift_arithmetic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/or_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/not_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/mux_Sumador.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/mux_ALU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/left_shift_logic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/left_shift_arithmetic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/flags.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/and_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/ALU_N_bits.sv

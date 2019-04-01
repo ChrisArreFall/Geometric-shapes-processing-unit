@@ -1,8 +1,9 @@
- 
 import matplotlib.pyplot as plt
-points = []
+import numpy as np
 
-def lines (x0,y0,x1,y1):
+# Create the RGB figure matrix
+matrix = np.ones((640,480, 3), dtype=np.uint8) * 255
+def draw_line(x0,y0,x1,y1):
     dx=x1-x0
     dy=y1-y0
     if dx < 0:
@@ -15,38 +16,90 @@ def lines (x0,y0,x1,y1):
         sy=1
     
     if abs(dy) < abs(dx):
-        m=dy/dx
-        p=y0-m*x0
+        m = dy / dx
+        p = y0 - m*x0
+
+        # Parallel part of the code
+        while x0 + 8*sx != x1:
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+        
+        # Secuential part of the code
         while x0 != x1:
-            points.append((x0,round(m*x0+p)))
-            x0+=sx#esto se puede trabajar con la misma suma que tenemos implementada
+            matrix[x0,round(m*x0+p), :] = 0
+            x0 += sx
+
+
     else:
-        m=dx/dy
-        p=x0-m*y0
-        while y0!=y1:
-            points.append((round(m*y0+p),y0))
-            y0+=sy
-    x = list(map(lambda x: x[0], points))
-    y = list(map(lambda x: x[1], points))
+        m = dx / dy
+        p = x0 - m*y0
+
+        # Parallel part of the code
+        while y0 + 8*sy != y1:
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
+
+        # Secuential part of the code
+        while y0 != y1:
+            matrix[round(m*y0+p),y0, :] = 0
+            y0 += sy
     
-    plt.rc('grid', linestyle="-", color='black')
-    plt.scatter(x, y)
+    plt.imshow(matrix)
     plt.grid(True)
+    #plt.show()
+
+
+
+def triangle(x1, y1, x2, y2, x3, y3):
+
+    draw_line(x1, y1, x2, y2)
+    draw_line(x1, y1, x3, y3)
+    draw_line(x3, y3, x2, y2)
+
+    plt.imshow(matrix)
+    plt.grid(True)
+
     
-    plt.show()
-    
-def circles(xc,yc,r):
+def draw_circle(xc,yc,r):
     d = 3 - (2 * r)
     x = 0
     y = r
-    points.append((xc+x, yc+y))
-    points.append((xc-x, yc+y))
-    points.append((xc+x, yc-y))
-    points.append((xc-x, yc-y))
-    points.append((xc+y, yc+x))
-    points.append((xc-y, yc+x))
-    points.append((xc+y, yc-x))
-    points.append((xc-y, yc-x))
+    matrix[xc+x, yc+y, :] = 0
+    matrix[xc-x, yc+y, :] = 0
+    matrix[xc+x, yc-y, :] = 0
+    matrix[xc-x, yc-y, :] = 0
+    matrix[xc+y, yc+x, :] = 0
+    matrix[xc-y, yc+x, :] = 0
+    matrix[xc+y, yc-x, :] = 0
+    matrix[xc-y, yc-x, :] = 0
     while x <= y:
         x+=1
         if d<0:
@@ -54,27 +107,22 @@ def circles(xc,yc,r):
         else:
             d = d + 4 * (x - y) + 10
             y-=1
-        points.append((xc+x, yc+y))
-        points.append((xc-x, yc+y))
-        points.append((xc+x, yc-y))
-        points.append((xc-x, yc-y))
-        points.append((xc+y, yc+x))
-        points.append((xc-y, yc+x))
-        points.append((xc+y, yc-x))
-        points.append((xc-y, yc-x))
+        matrix[xc+x, yc+y, :] = 0
+        matrix[xc-x, yc+y, :] = 0
+        matrix[xc+x, yc-y, :] = 0
+        matrix[xc-x, yc-y, :] = 0
+        matrix[xc+y, yc+x, :] = 0
+        matrix[xc-y, yc+x, :] = 0
+        matrix[xc+y, yc-x, :] = 0
+        matrix[xc-y, yc-x, :] = 0
     
-    x = list(map(lambda x: x[0], points))
-    y = list(map(lambda x: x[1], points))
-    
-    plt.rc('grid', linestyle="-", color='black')
-    plt.scatter(x, y)
+    plt.imshow(matrix)
     plt.grid(True)
-    
-    plt.show()
+    #plt.show()
     
 
 
-def elipseop(xc, yc, rx, ry):
+def draw_elipse(xc, yc, rx, ry):
     potx = 2*rx*rx
     poty = 2*ry*ry
     
@@ -91,10 +139,10 @@ def elipseop(xc, yc, rx, ry):
     
     while paradax >= paraday:
         
-        points.append((xc+x, yc+y))
-        points.append((xc-x, yc+y))
-        points.append((xc+x, yc-y))
-        points.append((xc-x, yc-y))
+        matrix[xc+x, yc+y, :] = 0
+        matrix[xc-x, yc+y, :] = 0
+        matrix[xc+x, yc-y, :] = 0
+        matrix[xc-x, yc-y, :] = 0
         y += 1 
         paraday += potx
         error += dy
@@ -120,10 +168,10 @@ def elipseop(xc, yc, rx, ry):
     
     while paradax <= paraday:
         
-        points.append((xc+x, yc+y))
-        points.append((xc-x, yc+y))
-        points.append((xc+x, yc-y))
-        points.append((xc-x, yc-y))
+        matrix[xc+x, yc+y, :] = 0
+        matrix[xc-x, yc+y, :] = 0
+        matrix[xc+x, yc-y, :] = 0
+        matrix[xc-x, yc-y, :] = 0
         x += 1 
         paradax += poty
         error += dx
@@ -135,13 +183,54 @@ def elipseop(xc, yc, rx, ry):
             error += dy
             dy += potx
         
-    x = list(map(lambda x: x[0], points))
-    y = list(map(lambda x: x[1], points))
-    
-    plt.rc('grid', linestyle="-", color='black')
-    plt.scatter(x, y)
+    plt.imshow(matrix)
     plt.grid(True)
+    #plt.show()
+
+
+
+def fill_circle(xc, yc, r):
+
+    if r > 1:
+
+        for i in range(0, r): 
+            draw_circle(xc, yc, i)
+
+    matrix[xc, yc, :] = 0
+
+def fill_elipse(xc, yc, rx, ry):
+
+    # We search the smallest radius
+    if(rx > ry):
+        r_menor = ry
+    else:
+        r_menor = rx
+
+    # Check if its big enought to be filled
+    if r_menor > 1:
+
+        for i in range(0, r_menor): 
+
+            draw_elipse(xc, yc, rx, ry)
+
+            rx -= 1
+            ry -= 1 
+        
+
+        
+        if(rx > ry):
+            draw_line(xc + rx, yc, xc - rx, yc)
+
+        else:
+            draw_line(xc, yc + ry, xc, yc - ry)
+
+        
+
+
+
+
+#def fill_triangle(x1, y1, x2, y2, x3, y3):
     
-    plt.show()
+
 
 

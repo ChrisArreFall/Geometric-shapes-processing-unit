@@ -4,8 +4,10 @@ import numpy as np
 # Create the RGB figure matrix
 matrix = np.ones((640,480, 3), dtype=np.uint8) * 255
 def draw_line(x0,y0,x1,y1):
-    dx=x1-x0
-    dy=y1-y0
+    dx = x1-x0
+    dy = y1-y0
+    
+    # Calc if the point if further in x-y or before
     if dx < 0:
         sx=-1
     else:
@@ -19,8 +21,10 @@ def draw_line(x0,y0,x1,y1):
         m = dy / dx
         p = y0 - m*x0
 
+        steps = abs(dx)
+
         # Parallel part of the code
-        while x0 + 8*sx != x1:
+        while steps >= 8:
             matrix[x0,round(m*x0+p), :] = 0
             x0 += sx
             matrix[x0,round(m*x0+p), :] = 0
@@ -37,19 +41,23 @@ def draw_line(x0,y0,x1,y1):
             x0 += sx
             matrix[x0,round(m*x0+p), :] = 0
             x0 += sx
+            steps -= 8
         
         # Secuential part of the code
-        while x0 != x1:
+        while steps > 0:
             matrix[x0,round(m*x0+p), :] = 0
             x0 += sx
+            steps -= 1
 
 
     else:
         m = dx / dy
         p = x0 - m*y0
 
+        steps = abs(dy)
+
         # Parallel part of the code
-        while y0 + 8*sy != y1:
+        while steps >= 8:
             matrix[round(m*y0+p),y0, :] = 0
             y0 += sy
             matrix[round(m*y0+p),y0, :] = 0
@@ -67,10 +75,13 @@ def draw_line(x0,y0,x1,y1):
             matrix[round(m*y0+p),y0, :] = 0
             y0 += sy
 
+            steps -= 8
+
         # Secuential part of the code
-        while y0 != y1:
+        while steps > 0:
             matrix[round(m*y0+p),y0, :] = 0
             y0 += sy
+            steps -= 1
     
     plt.imshow(matrix)
     plt.grid(True)
@@ -78,14 +89,15 @@ def draw_line(x0,y0,x1,y1):
 
 
 
-def triangle(x1, y1, x2, y2, x3, y3):
+def draw_triangle(x1, y1, x2, y2, x3, y3):
 
     draw_line(x1, y1, x2, y2)
     draw_line(x1, y1, x3, y3)
+
     draw_line(x3, y3, x2, y2)
 
     plt.imshow(matrix)
-    plt.grid(True)
+    #plt.grid(True)
 
     
 def draw_circle(xc,yc,r):
@@ -229,8 +241,39 @@ def fill_elipse(xc, yc, rx, ry):
 
 
 
-#def fill_triangle(x1, y1, x2, y2, x3, y3):
+def fill_triangle(x1, y1, x2, y2, x3, y3):
+"""
+    if(x2 > x1):
+        temp = x2
+        x2 = x1
+        x1 = temp
+
+        temp = y2
+        y2 = y1
+        y1 = y2
     
+    if(x3 > x1):
+        temp = x3
+        x3 = x1
+        x1 = temp
+
+        temp = y3
+        y3 = y1
+        y1 = y3
+    
+    if(y3 > y2)
+        temp = x2
+        x2 = x3
+        x3 = temp
+
+        temp = y3
+        y3 = y2
+        y2 = y3
+
+    
+    for(i in range(y2 - y3)):
+        draw_line(x1,y1, x2)
+    """
 
 
 

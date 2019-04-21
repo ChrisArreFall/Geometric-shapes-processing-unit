@@ -139,14 +139,19 @@ class BranchInstruction():
                 self.op_code            = '10'
                 self.function           = function
 
-                # Decode value if an immediate is used
-                imm24 = imm24.eval()
-                if(type(imm24) == int):
-                        self.imm24 = "{0:b}".format(imm24)
-                        self.imm24 = (24 - len(self.imm24)) * '0' + self.imm24
+                # Decode immediate used
+                self.imm24 = "{0:b}".format(imm24.eval())
+                self.imm24 = (24 - len(self.imm24)) * '0' + self.imm24
  
 
         def eval(self):
+
+                print(self.condition.eval()   + 
+                                self.op_code            + 
+                                self.function.eval()    +
+                                self.imm24)
+        
+
                 return hex(int( self.condition.eval()   + 
                                 self.op_code            + 
                                 self.function.eval()    +

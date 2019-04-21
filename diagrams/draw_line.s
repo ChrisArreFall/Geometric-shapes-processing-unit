@@ -42,13 +42,14 @@
 	B   ."calcularMP"	
 
 ."calcularMP"
-	ALT R0, R6, R5  			;abs(dy) < abs(dx)
+    #   a   EX  c   BX  (EX c shape color not used)
+	ALT R6, R0, R0, R5 #0, #0   			;abs(dy) < abs(dx)
 	CMP R0, #1
 	BNE ."abs(dy) >= abs(dx)"   ;false
     ; abs(dy) < abs(dx) case
-	DIV R9, R6, R5				;m = dy / dx
-    #   c    a   EX  BX  (shape color) = 0
-	CAM R10, R2, R1, R9			;p = y0 - m*x0
+    DIV R6, R0, R9, R5, #0, #0  ;m = dy / dx
+    #   a   EX  c   BX  (shape color) = 0
+	CAM R2, R1, R10, R9, #0, #0 ;p = y0 - m*x0
     
     LSR R0, R5, #31				;R0 = mask = dx >> 31
 	XOR R12, R0, R5 			;R12 = mask xor dx
@@ -58,8 +59,10 @@
     #   a   EX   c   BX   shape color
 	#   x0  p    m   sx     0
 	DR8 R1, R10, R9, R7, #0, #5	; 8x matrix[x0+n*sx,round(m*x0+p), :] = 0
-    #   c   a   EX  BX  (shape color) = 0
-    CAP R1, R7, R1, R11         ; x0 + 8*sx
+    #   a   EX  c   BX  (shape color) = 0
+    CAP R7, R1, R1, R11, #0, #0 ; x0 + 8*sx
+
+
     SUB R12, R12, #8            ; steps -= 8
     CMP R12, #8                 ; steps >= 8
     BGE ."while_steps>=8x"      ; true
@@ -75,9 +78,9 @@
 
 ; abs(dy) >= abs(dx) case
 ."abs(dy) >= abs(dx)"
-    DIV R9, R5, R6				;m = dx / dy
-    #   c    a   EX  BX  (shape color) = 0
-	CAM R10, R1, R2, R9			;p = x0 - m*y0
+    DIV R5, R0, R9, R6, #0, #0	;m = dx / dy
+    #   a   EX   c  BX  (shape color) = 0
+	CAM R1, R2, R10, R9, #0, #0	;p = x0 - m*y0
 
     LSR R0, R6, #31				;R0 = mask = dy >> 31
 	XOR R12, R0, R6 			;R12 = mask xor dy
@@ -87,8 +90,8 @@
     #   a   EX   c   BX   shape color
 	#   y0  p    m   sy     1
 	DR8 R2, R10, R9, R8, #1, #5	; 8x matrix[round(m*y0+p),y0, :] = 0
-    #   c   a   EX  BX  (shape color) = 0
-    CAP R2, R8, R2, R11         ; y0 + 8*sy
+    #   a   EX  c   BX  (shape color) = 0
+    CAP R8, R2, R2, R11, #0, #0 ; y0 + 8*sy
     SUB R12, R12, #8            ; steps -= 8
     CMP R12, #8                 ; steps >= 8
     BGE ."while_steps>=8y"      ; true

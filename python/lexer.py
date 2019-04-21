@@ -23,8 +23,7 @@ class Lexer():
             self.lexer.add(cond, cond) 
         
         # Inmediate
-        self.lexer.add('INM', r'#')
-        self.lexer.add('NUM', r'\d+')
+        self.lexer.add('IMM', r'#\d+')
 
         # Comma
         self.lexer.add('COMMA', r',')
@@ -32,6 +31,8 @@ class Lexer():
         # Spaces and line jumps
         self.lexer.add('LJUMP', r'\n')
         self.lexer.add('SPACE', r'\s')
+        
+        
 
 
     def get_lexer(self):

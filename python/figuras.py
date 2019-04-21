@@ -138,16 +138,15 @@ def draw_elipse(xc, yc, rx, ry):
     potx = 2*rx*rx
     poty = 2*ry*ry
     
-    x = rx
     y = 0
-    
+    error = 0
+    paraday = 0
+
+    x = rx
     dx = ry*ry*(1 - 2*rx)
     dy = rx*rx
     
-    error = 0
-    
     paradax = poty*rx
-    paraday = 0
     
     while paradax >= paraday:
         
@@ -167,15 +166,14 @@ def draw_elipse(xc, yc, rx, ry):
             dx += poty
             
             
+
     x = 0
-    y = ry
+    error = 0
+    paradax = 0
     
+    y = ry
     dx = ry*ry
     dy = rx*rx*(1 - 2*ry)
-    
-    error = 0
-    
-    paradax = 0
     paraday = potx*ry
     
     while paradax <= paraday:

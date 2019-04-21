@@ -43,7 +43,7 @@
 
 ."calcularMP"
     #   a   EX  c   BX  (EX c shape color not used)
-	ALT R6, R0, R0, R5 #0, #0   			;abs(dy) < abs(dx)
+	ALT R6, R0, R0, R5, #0, #0   			;abs(dy) < abs(dx)
 	CMP R0, #1
 	BNE ."abs(dy) >= abs(dx)"   ;false
     ; abs(dy) < abs(dx) case

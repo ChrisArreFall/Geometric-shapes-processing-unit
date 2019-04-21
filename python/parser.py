@@ -13,47 +13,37 @@ class Parser():
 
     def parse(self):
 
-        # Define the top production
-        @self.pg.production('instruction : data_inst')
-        @self.pg.production('instruction : cmp')
-        @self.pg.production('instruction : custom_inst')
-        @self.pg.production('instruction : b_inst')
-        def instruction(p):
-            return p[0]
-
         # Define the rules of a data instruction
-        @self.pg.production('data_inst : data_instruction SPACE reg COMMA reg COMMA reg')
-        @self.pg.production('data_inst : data_instruction SPACE reg COMMA reg COMMA num')
+        @self.pg.production('instruction : data_instruction SPACE reg COMMA reg COMMA reg')
+        @self.pg.production('instruction : data_instruction SPACE reg COMMA reg COMMA num')
         def data_inst(p):
             condition = '1110'
-            I = '0'
             inst = p[0]
             S = '0'
             rd = p[2]
             rn = p[4]
             src2 = p[6]
 
-            return DataProcessingInstruction(condition, I, inst, S, rn, rd, src2)
+            return DataProcessingInstruction(condition, inst, S, rn, rd, src2)
 
         # Specific case for CMP
-        @self.pg.production('cmp : cmp_instruction SPACE reg COMMA reg')
-        @self.pg.production('cmp : cmp_instruction SPACE reg COMMA num')
+        @self.pg.production('instruction : cmp_instruction SPACE reg COMMA reg')
+        @self.pg.production('instruction : cmp_instruction SPACE reg COMMA num')
         def cmp(p):
             condition = '1110'
-            I = '0'
-            inst = instructions[p[0]]
+            inst = p[0]
             S = '1'
             rn = p[2]
             rd = '0000'
             src2 = p[4] 
-
-            return DataProcessingInstruction(condition, I, inst, S, rn, rd, src2)
+            
+            return DataProcessingInstruction(condition, inst, S, rn, rd, src2)
 
 
         
        
         # Define the rules of a custom instruction
-        @self.pg.production('custom_inst : custom_instruction SPACE reg COMMA reg COMMA reg COMMA reg COMMA num COMMA num')
+        @self.pg.production('instruction : custom_instruction SPACE reg COMMA reg COMMA reg COMMA reg COMMA num COMMA num')
         def custom_inst(p):
             inst = p[0]
             a = p[2]
@@ -66,7 +56,7 @@ class Parser():
             return CustomInstruction( EX, inst, a, c, color, shape, BX)
 
         # Define the rules of a branch instruction
-        @self.pg.production('b_inst : branch_instruction cond SPACE num')
+        @self.pg.production('instruction : branch_instruction cond SPACE num')
         def b_inst(p):
             inst = p[0]
             cond = p[1]

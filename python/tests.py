@@ -1,7 +1,7 @@
 from lexer import Lexer
 from parser import Parser
 
-text_input = """SUB R5,R5,R5"""
+text_input = """ALT R6,R0,R0,R5,#0,#0"""
 
 lexer = Lexer().get_lexer()
 tokens = lexer.lex(text_input)
@@ -13,4 +13,6 @@ tokens = lexer.lex(text_input)
 pg = Parser()
 pg.parse() 
 parser = pg.get_parser()
-parser.parse(tokens).eval()
+print('-------------------------------------------------------')
+print(text_input + ' = ' + parser.parse(tokens).eval())
+print('-------------------------------------------------------')

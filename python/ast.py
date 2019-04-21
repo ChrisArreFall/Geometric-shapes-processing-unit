@@ -37,7 +37,7 @@ class CustomInstruction():
                 self.b                  = color + shape + BX.eval()
 
                 #       CAM                           CAP                          DR8
-                if(     (self.function == '0010') or (self.function == '0011') or (inst == '0101') or 
+                if(     (self.function == '0010') or (self.function == '0011') or (self.function == '0101') or 
                         (self.function == '0111') or (self.function == '1100')):
                 #        CD3                          DR1
                         self.activate_extra = '1'
@@ -57,7 +57,7 @@ class CustomInstruction():
 
 # Define subsets of instructions
 class DataProcessingInstruction():
-        def __init__(self, condition, I, cmd, S, rn, rd, src2):
+        def __init__(self, condition, cmd, S, rn, rd, src2):
                 # condition     31:28   Defines if the instruction has to be executed
                 # op_code       27:26   Defines what kind of operation it is
                 # I     25      Indicates if src2 is an immediate
@@ -68,7 +68,7 @@ class DataProcessingInstruction():
                 # src2  11:0    Second source
                 self.condition          = condition 
                 self.op_code            = '00'
-                self.I                  = I
+                self.I                  = '0'
                 self.cmd                = cmd 
                 self.S                  = S
                 self.rn                 = rn
@@ -88,6 +88,9 @@ class DataProcessingInstruction():
                         # Rotation is added, since we dont need to represent big numbers
                         # there is no need to calculate the rotation
                         self.src2 = '0000' + self.src2
+
+                        #Since we use an inmediate I = 1
+                        self.I = '1'
 
                 # Add data if a register is provided    
                 else:
@@ -152,21 +155,21 @@ class BranchInstruction():
 
 class Register():
         def __init__(self, name):
-                self.name = name
+                self.name = name.getstr()
 
         def eval(self): 
-                return registers[self.name]   
+                return registers[self.name]
 
 class Condition():
         def __init__(self, name):
-                self.name = name
+                self.name = name.getstr()
 
         def eval(self): 
                 return conditions[self.name]   
 
 class Function():
         def __init__(self, name):
-                self.name = name
+                self.name = name.getstr()
 
         def eval(self): 
                 return instructions[self.name]      
@@ -174,7 +177,7 @@ class Function():
 class Immediate():
         def __init__(self, imm):
                 # Remove the # to get the number
-                self.value = int(imm[1:])
+                self.value = int(imm.getstr()[1:])
 
         def eval(self): 
                 # TODO AGREGAR COMPLEMENTO A DOS PARA NUMEROS NEGATIVOS

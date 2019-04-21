@@ -51,7 +51,7 @@
     SUB R10, R10, R8                ; paradax -= poty
     ADD R9, R9, R12                 ; error += dx
     ADD R12, R12, R8                 ; dx += poty
-    B .while1
+    BAL .while1
 
 .end1
     SUB R5, R5, R5                  ; x = 0
@@ -84,7 +84,7 @@
     SUB R11, R11, R7                ; paraday -= potx
     ADD R9, R9, R13                 ; error += dy
     ADD R13, R13, R7                ; dy += potx
-    B .while2
+    BAL .while2
 .end
 
 

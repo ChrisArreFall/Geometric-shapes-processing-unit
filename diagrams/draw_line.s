@@ -27,19 +27,19 @@
 	BLT ."if dx < 0"           	;true
 	ADD R7, R12, #1			  	;else: sx=1
 
-	B   .calcularDY
+	BAL   .calcularDY
 ."if dx < 0"
 	SUB R7, R12, #1			  	;sx = -1
-	B   .calcularDY				;
+	BAL   .calcularDY				;
 
 .calcularDY
 	CMP R6,#0				  	;if dy < 0
 	BLT ."if dy < 0"		  	;true
 	ADD R8, R12, #1			  	;else: sy=1
-	B   ."calcularMP"
+	BAL   ."calcularMP"
 ."if dy < 0"
 	SUB R7, R12, #1			  	;sy = -1
-	B   ."calcularMP"	
+	BAL   ."calcularMP"	
 
 ."calcularMP"
     #   a   EX  c   BX  (EX c shape color not used)
@@ -74,7 +74,7 @@
     DR1 R1, R10, R9, R7, #0, #5 ; matrix[x0,round(m*x0+p), :] = 0
     ADD R1, R1, R7              ; x0 += sx
     SUB R12, R12, #1            ; steps -= 1
-    B ."while_steps>0x"
+    BAL ."while_steps>0x"
 
 ; abs(dy) >= abs(dx) case
 ."abs(dy) >= abs(dx)"
@@ -103,7 +103,7 @@
     DR1 R2, R9, R10, R8, #0, #5 ; matrix[round(m*y0+p),y0, :] = 0
     ADD R2, R2, R8              ; x0 += sx
     SUB R12, R12, #1            ; steps -= 1
-    B ."while_steps>0y"
+    BAL ."while_steps>0y"
 
 .end
 

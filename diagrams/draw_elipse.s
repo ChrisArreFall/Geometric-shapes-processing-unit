@@ -17,6 +17,19 @@
 
 .start
 
+    SUB R1,R1,R1
+    ADD R1,R1,#300
+
+    SUB R2,R2,R2
+    ADD R2,R2,#400
+
+    SUB R3,R3,R3
+    ADD R3,R3,#200
+
+    SUB R4,R4,R4
+    ADD R4,R4,#50
+
+
     #   a   EX  c   BX  sh  col (EX, sh, col no se usan)
     POT R3, R0, R7, R3, #0, #0      ; potx = 2*rx*rx
     POT R4, R0, R8, R4, #0, #0      ; poty = 2*ry*ry

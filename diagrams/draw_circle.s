@@ -9,6 +9,17 @@
 ; R6 = y
 
 .start
+
+    SUB R1,R1,R1
+    ADD R1,R1,#100
+
+    SUB R2,R2,R2
+    ADD R2,R2,#100
+
+    SUB R3,R3,R3
+    ADD R3,R3,#50
+
+
     SUB R5, R5, R5              ; x = 0
     #   a   EX  c   BX  sh  col  solo a se usa
     CAD R3, R0, R4, R0, #0, #0  ; d = 3 - 2r
@@ -32,7 +43,7 @@
     #   a   EX  c   BX  sh  col
     DR8 R1, R5, R2, R6, #2, #32	; 8x points circle
     CMP R5, R6
-    BLE .draw
+    BLE .while
     
 .end
 

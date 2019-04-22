@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 # Create the RGB figure matrix
 matrix = np.ones((640,480, 3), dtype=np.uint8) * 255
@@ -25,21 +26,21 @@ def draw_line(x0,y0,x1,y1):
 
         # Parallel part of the code
         while steps >= 8:
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
-            matrix[x0,round(m*x0+p), :] = 0
+            matrix[x0,math.floor(m*x0+p), :] = 0
             x0 += sx
             steps -= 8
         
@@ -240,7 +241,7 @@ def fill_elipse(xc, yc, rx, ry):
 
 
 def fill_triangle(x1, y1, x2, y2, x3, y3):
-"""
+
     if(x2 > x1):
         temp = x2
         x2 = x1
@@ -259,7 +260,7 @@ def fill_triangle(x1, y1, x2, y2, x3, y3):
         y3 = y1
         y1 = y3
     
-    if(y3 > y2)
+    if(y3 > y2):
         temp = x2
         x2 = x3
         x3 = temp
@@ -269,9 +270,9 @@ def fill_triangle(x1, y1, x2, y2, x3, y3):
         y2 = y3
 
     
-    for(i in range(y2 - y3)):
-        draw_line(x1,y1, x2)
-    """
+    for i in range(y2 - y3):
+        draw_line(x1,y1, x2, y2)
+    
 
 
 

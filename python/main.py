@@ -8,7 +8,7 @@ pg.parse()
 parser = pg.get_parser()
 
 # Create the output file and save the path to the target
-target = "/media/HDD/TEC/Arquitectura_de_computadores_I/Proyecto_grupal_I/diagrams/target_line.s"
+target = "/media/HDD/TEC/Arquitectura_de_computadores_I/Proyecto_grupal_I/diagrams/target_circle.s"
 
 
 # Intermediate file generation
@@ -47,8 +47,13 @@ with  open(target, 'r') as input_text, open('intermediate.txt','w') as intermedi
                 if((line[j] == ' ') or (line[j] == '\n')): break
                 j += 1
             
-            # Calc the immediate = label_inst - (i + 1)
-            imm = str(labels[line[j+1:len(line) - 1]] - (i + 1))
+            # Calc the immediate
+            label_line = labels[line[j+1:len(line) - 1]]
+            if(label_line - i < 0):
+                imm = str(labels[line[j+1:len(line) - 1]] - (i + 1))
+            
+            else:
+                imm = str(labels[line[j+1:len(line) - 1]] - (i + 1) - 2)
 
             # Write the correct imm in the intermediate file
             intermediate.write(line[0: j+1] + '#' + imm + '\n')
@@ -62,7 +67,7 @@ with  open(target, 'r') as input_text, open('intermediate.txt','w') as intermedi
 
 # Output file generation       
 # Intermediate file generation
-with  open('intermediate.txt', 'r') as program, open('output.txt','w') as output:
+with  open('intermediate.txt', 'r') as program, open('circle_450_240_100.txt','w') as output:
 
     for line in program:
 

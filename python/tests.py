@@ -1,7 +1,7 @@
 from lexer import Lexer
 from parser import Parser
 
-text_input = """DIV R0,R0,R2,R1,#0,#0\n"""
+text_input = """MUL R0,R0,R2,R1,#0,#0\n"""
 
 lexer = Lexer().get_lexer()
 tokens = lexer.lex(text_input)

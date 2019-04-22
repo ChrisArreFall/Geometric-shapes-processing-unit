@@ -15,7 +15,7 @@ class CustomInstruction():
                 # color             11:6        Defines the color of the pixel in drawing op
                 # shape             5:4         Indicates the figure in drawing functions
                 # BX                3:0         Register
-                self.extra_reg          = extra_reg 
+                self.extra_reg          = extra_reg.eval() 
                 self.op_code            = '11' 
                 self.imm                = '0' 
                 self.function           = function.eval() 
@@ -50,10 +50,12 @@ class CustomInstruction():
                         (self.function == '0111') or (self.function == '1100')):
                 #        CD3                          DR1
                         self.activate_extra = '1'
+                else:
+                        self.extra_reg = '1111'
         
         def eval(self):
                 # Return the hex value of the instruction
-                return hex(int( self.extra_reg.eval()   + 
+                return hex(int( self.extra_reg          + 
                                 self.op_code            + 
                                 self.imm                + 
                                 self.function           + 

@@ -1,5 +1,5 @@
 module cd2 #(parameter N)
-    (input logic [N-1:0] D, a,
+    (input logic [N-1:0] BX, a,
      output logic [N-1:0] res);
 
    logic [N-1:0] four = 3'b100;
@@ -11,10 +11,10 @@ module cd2 #(parameter N)
 	
    mul #(N) mul(four, a, a4);	// 4*a
 	
-   sumador #(N) suma_1(a4, D, 0, a4D, cout1);  //D + 4*a
+   sumador #(N) suma_1(a4, BX, 0, a4D, cout1);  //BX + 4*a
 	
-	sumador #(N) suma_2(six, a4D, cout1, res, cout); // D+(4*a)+6
+	sumador #(N) suma_2(six, a4D, cout1, res, cout); // BX+(4*a)+6
 	
    //assign  c = res; // CD2
-                     // D+(4*a)+6
+                     // BX+(4*a)+6
 endmodule 

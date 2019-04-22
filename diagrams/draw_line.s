@@ -49,6 +49,7 @@
     ; abs(dy) < abs(dx) case
     DIV R6, R0, R9, R5, #0, #0  ;m = dy / dx
     #   a   EX  c   BX  (shape color) = 0
+    #   y0  x0  p    m
 	CAM R2, R1, R10, R9, #0, #0 ;p = y0 - m*x0
     
     LSR R0, R5, #31				;R0 = mask = dx >> 31

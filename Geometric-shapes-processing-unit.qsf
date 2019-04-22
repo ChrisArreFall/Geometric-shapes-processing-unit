@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone IV GX"
 set_global_assignment -name DEVICE AUTO
-set_global_assignment -name TOP_LEVEL_ENTITY "Geometric-shapes-processing-unit"
+set_global_assignment -name TOP_LEVEL_ENTITY tb_PROCESSOR
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:16:27  MARCH 30, 2019"
 set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
@@ -48,34 +48,71 @@ set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
 set_global_assignment -name EDA_BOARD_DESIGN_TIMING_TOOL "Stamp (Timing)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT STAMP -section_id eda_board_design_timing
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/ARMV4.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE shapes/GSU.sv
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE ../../Arqui/VGA_CONTROLLER/VGA_Controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../Arqui/graphicsBuffer.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ../../Arqui/MAIN_VGA_TEST.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/tb/tb_PROCESSOR.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/Memories/data_memory.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/Memories/instruction_memory.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/top.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/pipelineARM.sv
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Hazard Unit/hazardUnit.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/adderARM.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/ARMV4.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/data_path.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/extend.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/flipflopFlush.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/MUX_2.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/MUX_3.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/muxARM.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/PC_REG.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/pipelineDatapath.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/pipelinePCReg.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/PROCESSOR.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Data path/register_file.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/conditional_logic.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/conditions.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/control_unit.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/decoder.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/flipflopD.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineConditionalLogic.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineControlUnit.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineDecoder.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineRegDtoE.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineRegEtoM.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineRegFtoD.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/pipelineRegMtoWB.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE "base/Pipelined_ARM/Control Unit/REG_EN.sv"
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/ALU_N_bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/and_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/flags.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/left_shift_arithmetic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/left_shift_logic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/mux_ALU.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/mux_Sumador.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/not_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/or_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/right_shift_arithmetic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/right_shift_logic.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/simpleAdder.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/xor_A.sv
+set_global_assignment -name SYSTEMVERILOG_FILE base/Pipelined_ARM/ALU/sumador.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/ab2.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/alt.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/cad.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/cam.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/cap.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/cd2.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/cd3.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/div.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/dr8.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/dyx.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/mul.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/pot.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/tb_shapes.sv
 set_global_assignment -name SYSTEMVERILOG_FILE shapes/draw.sv
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/register_file.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/PROCESSOR.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/PC_REG.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/muxARM.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/extend.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/data_path.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/data_memory.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Data path/adderARM.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/REG_EN.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/decoder.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/control_unit.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/conditions.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE "base/Control Unit/conditional_logic.sv"
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/xor_A.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/tb_ALU.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/sumador.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/simpleAdder.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/right_shift_logic.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/right_shift_arithmetic.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/or_A.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/not_A.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/mux_Sumador.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/mux_ALU.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/left_shift_logic.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/left_shift_arithmetic.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/flags.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/and_A.sv
-set_global_assignment -name SYSTEMVERILOG_FILE base/ALU/ALU_N_bits.sv
+set_global_assignment -name SYSTEMVERILOG_FILE shapes/SPU.sv
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

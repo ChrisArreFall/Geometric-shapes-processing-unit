@@ -15,7 +15,8 @@ class Lexer():
             self.lexer.add(inst, inst) 
 
         # Registers
-        for reg in registers.keys():
+        for i in range(0, len(list(registers.keys()))):
+            reg = list(registers.keys())[len(list(registers.keys())) - i - 1]
             self.lexer.add(reg, reg) 
 
         # Conditions
@@ -23,6 +24,7 @@ class Lexer():
             self.lexer.add(cond, cond) 
         
         # Inmediate
+        self.lexer.add('-IMM', r'#-\d+')
         self.lexer.add('IMM', r'#\d+')
 
         # Comma

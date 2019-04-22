@@ -52,8 +52,8 @@
 	CAM R2, R1, R10, R9, #0, #0 ;p = y0 - m*x0
     
     LSR R0, R5, #31				;R0 = mask = dx >> 31
-	XOR R12, R0, R5 			;R12 = mask xor dx
-	SUB R12, R12, R0			;R12 = (mask xor dx) - mask = abs(dx) = steps
+	EOR R12, R0, R5 			;R12 = mask EOR dx
+	SUB R12, R12, R0			;R12 = (mask EOR dx) - mask = abs(dx) = steps
 
 ."while_steps>=8x"
     #   a   EX   c   BX   shape color
@@ -83,8 +83,8 @@
 	CAM R1, R2, R10, R9, #0, #0	;p = x0 - m*y0
 
     LSR R0, R6, #31				;R0 = mask = dy >> 31
-	XOR R12, R0, R6 			;R12 = mask xor dy
-	SUB R12, R12, R0			;R12 = (mask xor dy) - mask = abs(dy) = steps
+	EOR R12, R0, R6 			;R12 = mask EOR dy
+	SUB R12, R12, R0			;R12 = (mask EOR dy) - mask = abs(dy) = steps
 
 ."while_steps>=8y"
     #   a   EX   c   BX   shape color

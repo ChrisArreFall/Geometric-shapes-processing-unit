@@ -27,12 +27,21 @@ class CustomInstruction():
                 shape = shape.eval()
                 if(type(shape) == int):
                         shape = "{0:b}".format(shape)
-                        shape = (2 - len(shape)) * '0' + shape
+
+                        # If the immediate is negative, calculate its complement
+                        if(shape[0] == '-'): 
+                                shape = complement((2 - len(shape)) * '0' + shape[1:])
+                        else:
+                                shape = (2 - len(shape)) * '0' + shape
 
                 color = color.eval()
                 if(type(color) == int):
                         color = "{0:b}".format(color)
-                        color = (6 - len(color)) * '0' + color
+                        # If the immediate is negative, calculate its complement
+                        if(color[0] == '-'): 
+                                color = complement((6 - len(color)) * '0' + color[1:])
+                        else:
+                                color = (6 - len(color)) * '0' + color
 
                 self.b                  = color + shape + BX.eval()
 
@@ -84,7 +93,12 @@ class DataProcessingInstruction():
                 if(type(src2) == int):
                         I = '1'
                         self.src2 = "{0:b}".format(src2)
-                        self.src2 = (8 - len(self.src2)) * '0' + self.src2
+
+                        # If the immediate is negative, calculate its complement
+                        if(self.src2[0] == '-'): 
+                                self.src2 = complement((8 - len(self.src2)) * '0' + self.src2[1:])
+                        else:
+                                self.src2 = (8 - len(self.src2)) * '0' + self.src2
                         # Rotation is added, since we dont need to represent big numbers
                         # there is no need to calculate the rotation
                         self.src2 = '0000' + self.src2
@@ -141,17 +155,16 @@ class BranchInstruction():
 
                 # Decode immediate used
                 self.imm24 = "{0:b}".format(imm24.eval())
-                self.imm24 = (24 - len(self.imm24)) * '0' + self.imm24
+
+                # If the immediate is negative, calculate its complement
+                if(self.imm24[0] == '-'): 
+                        self.imm24 = complement((24 - len(self.imm24)) * '0' + self.imm24[1:])
+                else:
+                        self.imm24 = (24 - len(self.imm24)) * '0' + self.imm24
  
 
         def eval(self):
-
-                print(self.condition.eval()   + 
-                                self.op_code            + 
-                                self.function.eval()    +
-                                self.imm24)
         
-
                 return hex(int( self.condition.eval()   + 
                                 self.op_code            + 
                                 self.function.eval()    +
@@ -185,5 +198,4 @@ class Immediate():
                 self.value = int(imm.getstr()[1:])
 
         def eval(self): 
-                # TODO AGREGAR COMPLEMENTO A DOS PARA NUMEROS NEGATIVOS
                 return self.value     

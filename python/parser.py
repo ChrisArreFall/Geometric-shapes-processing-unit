@@ -7,15 +7,15 @@ class Parser():
     def __init__(self):
         self.pg = ParserGenerator( 
             list(registers.keys()) + list(instructions.keys()) + list(conditions.keys()) +
-            ['IMM', 'COMMA', 'LJUMP', 'SPACE']
+            ['IMM', '-IMM', 'COMMA', 'LJUMP', 'SPACE']
         )
 
 
     def parse(self):
 
         # Define the rules of a data instruction
-        @self.pg.production('instruction : data_instruction SPACE reg COMMA reg COMMA reg')
-        @self.pg.production('instruction : data_instruction SPACE reg COMMA reg COMMA num')
+        @self.pg.production('instruction : data_instruction SPACE reg COMMA reg COMMA reg LJUMP')
+        @self.pg.production('instruction : data_instruction SPACE reg COMMA reg COMMA num LJUMP')
         def data_inst(p):
             condition = '1110'
             inst = p[0]
@@ -27,8 +27,8 @@ class Parser():
             return DataProcessingInstruction(condition, inst, S, rn, rd, src2)
 
         # Specific case for CMP
-        @self.pg.production('instruction : cmp_instruction SPACE reg COMMA reg')
-        @self.pg.production('instruction : cmp_instruction SPACE reg COMMA num')
+        @self.pg.production('instruction : cmp_instruction SPACE reg COMMA reg LJUMP')
+        @self.pg.production('instruction : cmp_instruction SPACE reg COMMA num LJUMP')
         def cmp(p):
             condition = '1110'
             inst = p[0]
@@ -43,7 +43,7 @@ class Parser():
         
        
         # Define the rules of a custom instruction
-        @self.pg.production('instruction : custom_instruction SPACE reg COMMA reg COMMA reg COMMA reg COMMA num COMMA num')
+        @self.pg.production('instruction : custom_instruction SPACE reg COMMA reg COMMA reg COMMA reg COMMA num COMMA num LJUMP')
         def custom_inst(p):
             inst = p[0]
             a = p[2]
@@ -52,11 +52,11 @@ class Parser():
             BX = p[8]
             shape = p[10]
             color = p[12]
-
+            
             return CustomInstruction( EX, inst, a, c, color, shape, BX)
 
         # Define the rules of a branch instruction
-        @self.pg.production('instruction : branch_instruction cond SPACE num')
+        @self.pg.production('instruction : branch_instruction cond SPACE num LJUMP')
         def b_inst(p):
             inst = p[0]
             cond = p[1]
@@ -70,6 +70,7 @@ class Parser():
 
         # Define what a immediate is
         @self.pg.production('num : IMM')
+        @self.pg.production('num : -IMM')
         def num(p):
             return Immediate(p[0])
 

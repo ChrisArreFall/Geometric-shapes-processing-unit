@@ -71,3 +71,38 @@ conditions =    {
                     'LE': '1101',
                     'AL': '1110'
                 }
+
+# get the complement of a binary number
+def complement(binary):
+
+    added = False
+    comp = ''
+    bp1 = ''
+    i = len(binary) - 1
+
+    # Make the binary + 1
+    while((i >= 0) and not(added)):
+
+        if(binary[i] == '0'):
+            bp1 = binary[0:i] + '1' + bp1
+            added = True
+
+        else:
+            bp1 = '0' + bp1
+
+        i -= 1
+    
+    # Just in case all the number had were ones
+    if(not(added)):
+         bp1 = '1' + bp1
+
+    # Invert the values
+    for i in range(0, len(bp1)):
+
+        if(bp1[i] == '1'):   comp = comp + '0'
+        else:                comp = comp + '1' 
+
+    return comp
+
+
+    
